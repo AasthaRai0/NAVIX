@@ -1,0 +1,2 @@
+- [x] Finish the six-page NAVIX simulated frontend and verify navigation and controls.
+- [x] Change the interface background and surfaces to light white (not blue-tinted).

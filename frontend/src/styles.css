@@ -1,0 +1,189 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * NAVIX — RoadSense Fusion AI
+ * Light aerospace / navigation operations center design system.
+ * All colors in oklch. Never hardcode colors in components.
+ */
+
+@theme inline {
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 2px);
+  --radius-2xl: calc(var(--radius) + 4px);
+  --radius-3xl: calc(var(--radius) + 6px);
+  --radius-4xl: calc(var(--radius) + 8px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-panel: var(--panel);
+  --color-panel-header: var(--panel-header);
+  --color-grid: var(--grid);
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --color-crit: var(--crit);
+  --color-cyan: var(--cyan);
+  --color-electric: var(--electric);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --font-mono:
+    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-sans: "Barlow", "Barlow Semi Condensed", system-ui, sans-serif;
+}
+
+:root {
+  --radius: 4px;
+  --background: oklch(0.995 0.002 240);
+  --foreground: oklch(0.22 0.044 250);
+  --panel: oklch(1 0 0);
+  --panel-header: oklch(0.974 0.004 240);
+  --grid: oklch(0.89 0.011 240);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.044 250);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.044 250);
+  --primary: oklch(0.48 0.14 223);
+  --primary-foreground: oklch(0.99 0.003 240);
+  --secondary: oklch(0.965 0.007 234);
+  --secondary-foreground: oklch(0.25 0.05 250);
+  --muted: oklch(0.96 0.006 240);
+  --muted-foreground: oklch(0.45 0.035 246);
+  --accent: oklch(0.5 0.16 254);
+  --accent-foreground: oklch(0.99 0.003 240);
+  --destructive: oklch(0.5 0.2 25);
+  --destructive-foreground: oklch(0.99 0.003 240);
+  --border: oklch(0.87 0.015 240);
+  --input: oklch(0.85 0.018 240);
+  --ring: oklch(0.48 0.14 223);
+  --cyan: oklch(0.46 0.13 215);
+  --electric: oklch(0.46 0.18 262);
+  --ok: oklch(0.46 0.14 154);
+  --warn: oklch(0.55 0.13 75);
+  --crit: oklch(0.52 0.2 24);
+  --chart-1: oklch(0.46 0.13 215);
+  --chart-2: oklch(0.46 0.18 262);
+  --chart-3: oklch(0.46 0.14 154);
+  --chart-4: oklch(0.55 0.13 75);
+  --chart-5: oklch(0.52 0.2 24);
+  --sidebar: oklch(0.985 0.003 240);
+  --sidebar-foreground: oklch(0.35 0.04 245);
+  --sidebar-primary: oklch(0.46 0.13 215);
+  --sidebar-primary-foreground: oklch(0.99 0.003 240);
+  --sidebar-accent: oklch(0.94 0.013 234);
+  --sidebar-accent-foreground: oklch(0.2 0.04 250);
+  --sidebar-border: oklch(0.87 0.015 240);
+  --sidebar-ring: oklch(0.46 0.13 215);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "tnum" 1;
+  }
+
+  h1,
+  h2,
+  h3 {
+    letter-spacing: 0.04em;
+  }
+}
+
+@utility grid-backdrop {
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in oklab, var(--grid) 24%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--grid) 24%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 44px 44px;
+}
+
+@utility panel-glow {
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--cyan) 12%, transparent),
+    0 12px 34px -20px color-mix(in oklab, var(--cyan) 55%, transparent);
+}
+
+@utility label-tech {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+@utility scan-line {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    color-mix(in oklab, var(--cyan) 4%, transparent) 4px
+  );
+}
+
+/* Leaflet dark adaptation */
+.leaflet-container {
+  background: var(--background);
+  font-family: var(--font-mono);
+}
+.leaflet-tile-pane {
+  filter: saturate(0.68) contrast(0.95);
+}
+.leaflet-control-zoom a,
+.leaflet-bar a {
+  background-color: var(--panel-header) !important;
+  color: var(--foreground) !important;
+  border-color: var(--border) !important;
+}
+.leaflet-control-attribution {
+  background: color-mix(in oklab, var(--panel) 80%, transparent) !important;
+  color: var(--muted-foreground) !important;
+  font-size: 9px;
+}
+.leaflet-control-attribution a {
+  color: var(--cyan) !important;
+}
