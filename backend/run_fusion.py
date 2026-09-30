@@ -101,7 +101,7 @@ def main():
     plt.xlabel("Longitude"); plt.ylabel("Latitude")
     plt.title("TrueTrack: GNSS vs Fused Trajectory")
     plt.legend(); plt.grid(True)
-    plt.tight_layout(); plt.show()
+    plt.tight_layout(); plt.savefig("data/trajectory_plot.png"); plt.close()
 
     fig=plt.figure(figsize=(9,4))
     plt.plot(out.relative_time,out.position_error_m)
@@ -109,7 +109,7 @@ def main():
     plt.xlabel("Time (s)"); plt.ylabel("Position error (m)")
     plt.title("Position Error")
     plt.legend(); plt.grid(True)
-    plt.tight_layout(); plt.show()
+    plt.tight_layout(); plt.savefig("data/position_error_plot.png"); plt.close()
 
     fig=plt.figure(figsize=(9,4))
     plt.plot(out.relative_time,out.gnss_trust)
@@ -117,7 +117,7 @@ def main():
     plt.xlabel("Time (s)"); plt.ylabel("GNSS Trust")
     plt.title("Adaptive GNSS Trust Score")
     plt.ylim(-0.05,1.05); plt.legend(); plt.grid(True)
-    plt.tight_layout(); plt.show()
+    plt.tight_layout(); plt.savefig("data/gnss_trust_plot.png"); plt.close()
 
 if __name__=="__main__":
     main()

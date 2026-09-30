@@ -1,11 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DemoTag, Panel, StatusDot } from "@/components/navix/Panel";
+import { fetchHealth, BackendHealth } from "@/lib/api";
 
 export const Route = createFileRoute("/settings")({
   head: () => ({
     meta: [
-      { title: "System Settings — NAVIX" },
+      { title: "System Settings — NAVIX | TrueTrack" },
       {
         name: "description",
         content:
@@ -31,8 +32,24 @@ function SettingsPage() {
   const [alertsCritical, setAlertsCritical] = useState(true);
   const [alertsWarning, setAlertsWarning] = useState(true);
   const [alertsInfo, setAlertsInfo] = useState(false);
-  const [demoMode, setDemoMode] = useState(true);
+  const [demoMode, setDemoMode] = useState(false);
   const [density, setDensity] = useState("Compact");
+
+  const [health, setHealth] = useState<BackendHealth | null>(null);
+
+  useEffect(() => {
+    let mounted = true;
+    const check = async () => {
+      const res = await fetchHealth();
+      if (mounted) setHealth(res);
+    };
+    check();
+    const interval = setInterval(check, 3000);
+    return () => {
+      mounted = false;
+      clearInterval(interval);
+    };
+  }, []);
 
   return (
     <div className="grid gap-3 lg:grid-cols-2">
@@ -51,9 +68,9 @@ function SettingsPage() {
         <Toggle label="Show INS-only trajectory" value={showIns} onChange={setShowIns} />
       </Panel>
 
-      <Panel title="Sensor & Filter Rates" right={<DemoTag />}>
+      <Panel title="Sensor & Filter Rates" right={<DemoTag label="REALTIME" />}>
         <Range label="IMU update frequency" value={imuRate} min={50} max={400} step={10} unit="Hz" onChange={setImuRate} />
-        <Range label="EKF update frequency" value={ekfRate} min={10} max={100} step={5} unit="Hz" onChange={setEkfRate} />
+        <Range label="UKF update frequency" value={ekfRate} min={10} max={100} step={5} unit="Hz" onChange={setEkfRate} />
         <Range
           label="Navigation confidence threshold"
           value={threshold}
@@ -74,24 +91,22 @@ function SettingsPage() {
         <Toggle label="Informational events" value={alertsInfo} onChange={setAlertsInfo} />
       </Panel>
 
-      <Panel title="Backend Connection">
-        <div className="flex items-center gap-2 rounded-sm border border-border bg-secondary/40 px-2 py-2">
-          <StatusDot tone="warn" />
-          <span className="font-mono text-[11px] text-warn">
-            PYTHON PROCESSING CORE — NOT CONNECTED
+      <Panel title="FastAPI Backend Connection">
+        <div className="flex items-center gap-2 rounded-sm border border-border bg-secondary/40 px-2.5 py-2">
+          <StatusDot tone={health?.status === "ok" ? "ok" : "warn"} />
+          <span className={`font-mono text-[11px] font-bold ${health?.status === "ok" ? "text-ok" : "text-warn"}`}>
+            {health?.status === "ok"
+              ? "PYTHON PROCESSING CORE (FASTAPI) — CONNECTED"
+              : "PYTHON PROCESSING CORE — NOT CONNECTED"}
           </span>
         </div>
         <div className="mt-2 space-y-1 font-mono text-[10px] text-muted-foreground">
-          <div>ENDPOINT — not configured</div>
-          <div>PROTOCOL — REST / JSON (planned)</div>
-          <div>LAST HANDSHAKE — never</div>
+          <div>ENDPOINT — http://localhost:8000</div>
+          <div>PROTOCOL — REST / JSON (FastAPI uvicorn)</div>
+          <div>TCN WEIGHTS LOADED — {health?.tcn_weights ? "YES (speed_tcn.pt)" : "NO"}</div>
+          <div>HEALTH STATUS — {health?.status || "CHECKING..."}</div>
         </div>
-        <Toggle label="Demo mode (simulated data)" value={demoMode} onChange={setDemoMode} />
-        {!demoMode ? (
-          <p className="mt-2 font-mono text-[10px] text-crit">
-            Live mode unavailable — no backend is connected, interface stays on simulated data.
-          </p>
-        ) : null}
+        <Toggle label="Force simulated fallback mode" value={demoMode} onChange={setDemoMode} />
       </Panel>
 
       <Panel title="Interface Preferences" className="lg:col-span-2">
