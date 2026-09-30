@@ -11,8 +11,7 @@ LAT0, LON0 = 28.6139, 77.2090
 
 
 def to_ll(x, y):
-    return (LAT0 + math.degrees(y / R),
-            LON0 + math.degrees(x / (R * math.cos(math.radians(LAT0)))))
+    return (LAT0 + math.degrees(y / R),LON0 + math.degrees(x / (R * math.cos(math.radians(LAT0)))))
 
 
 def to_xy(lat, lon):
