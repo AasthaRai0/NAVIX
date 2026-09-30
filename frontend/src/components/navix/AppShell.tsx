@@ -119,7 +119,7 @@ export function AppShell({ children }: AppShellProps) {
       </div>
 
       {/* Main Content Area */}
-      <main className="flex-1 p-3 md:p-4 max-w-(--breakpoint-2xl) w-full mx-auto">
+      <main className="flex-1 p-3 md:p-5 w-full">
         {children}
       </main>
 
