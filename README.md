@@ -134,16 +134,19 @@ AI:
 3. Phone orientation normalization
 4. AI confidence estimation
 5. More diverse training data
+
 Sensor Fusion:
 1. Improved adaptive noise estimation
 2. Better GNSS anomaly detection
 3. Smartphone-specific calibration
 4. Improved GNSS recovery handling
+
 Mapping:
 1. Full HMM/Viterbi map matching
 2. Offline OpenStreetMap integration
 3. Road topology constraints
 4. Lane-level positioning
+
 Mobile:
 1. Android integration
 2. Real-time smartphone IMU streaming
