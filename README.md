@@ -99,3 +99,54 @@ Key metrics:
 ## 🚀 MVP
 
 The first version is a **Python desktop prototype** that can load recorded sensor data, simulate GNSS outages, run the navigation pipeline, and visualize the resulting trajectory and performance.
+
+## 📱 Future Smartphone Deployment
+
+The current system is being developed as a Python prototype.
+
+The intended smartphone architecture is:
+          Android Smartphone
+                  │
+        ┌─────────┴─────────┐
+        │                   │
+       IMU                 GNSS
+        │                   │
+        └─────────┬─────────┘
+                  ▼
+           NAVIX Edge Engine
+                  │
+           ┌──────┴──────┐
+           │             │
+          TCN           UKF
+           │             │
+           └──────┬──────┘
+                  ▼
+          Position Estimate
+                  │
+                  ▼
+          Navigation Interface
+
+## 🔮 Future Improvements
+
+AI:
+1. Improved TCN architecture
+2. Better IMU preprocessing
+3. Phone orientation normalization
+4. AI confidence estimation
+5. More diverse training data
+Sensor Fusion:
+1. Improved adaptive noise estimation
+2. Better GNSS anomaly detection
+3. Smartphone-specific calibration
+4. Improved GNSS recovery handling
+Mapping:
+1. Full HMM/Viterbi map matching
+2. Offline OpenStreetMap integration
+3. Road topology constraints
+4. Lane-level positioning
+Mobile:
+1. Android integration
+2. Real-time smartphone IMU streaming
+3. On-device AI inference
+4. Real-time UKF
+5. Low-power optimization
